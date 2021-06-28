@@ -32,7 +32,7 @@ namespace AssetLiabilityChallenge.Controllers
         [HttpGet]
         public IEnumerable<BalanceSheetItem> Get()
         {
-            return _db.BalanceSheetItems.ToArray();
+            return _db.BalanceSheetItems.OrderBy(item => item.Id).ToArray();
         }
 
         [HttpGet("getStats")]

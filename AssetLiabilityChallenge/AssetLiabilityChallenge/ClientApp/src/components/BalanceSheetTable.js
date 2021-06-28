@@ -1,4 +1,8 @@
 ﻿import React, { useState, useEffect } from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 import BalanceSheetForm from './BalanceSheetForm';
 import BalanceSheetStats from './BalanceSheetStats';
 
@@ -28,33 +32,40 @@ const BalanceSheetTable = (props) => {
         });
     }
     return (
-        <div>
-            <BalanceSheetForm
-                key={"form" + renderFlag}
-                callback={setRenderFlag} />
-        <table className='table table-striped' aria-labelledby="tabelLabel">
-            <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Balance</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {sheetItems.map(sheetItem =>
-                    <tr key={sheetItem.id}>
-                        <td>{sheetItem.typeString}</td>
-                        <td>{sheetItem.name}</td>
-                        <td>{sheetItem.balance}</td>
-                        <td><button onClick={(e) => deleteItem(sheetItem.id, e)}>Delete Row</button></td>
-                    </tr>
-                )}
-            </tbody>
-            </table>
-            <BalanceSheetStats
-                key={"stat" + renderFlag } />
-        </div>
+        <Container>
+            <Row className="d-flex justify-content-center">
+                <BalanceSheetForm
+                    key={"form" + renderFlag}
+                    callback={setRenderFlag} />
+            </Row>
+            <br />
+            <Row>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Balance</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sheetItems.map(sheetItem =>
+                            <tr key={sheetItem.id}>
+                                <td>{sheetItem.typeString}</td>
+                                <td>{sheetItem.name}</td>
+                                <td>{sheetItem.balance}</td>
+                                <td><Button onClick={(e) => deleteItem(sheetItem.id, e)}>Delete Row</Button></td>
+                            </tr>
+                        )}
+                    </tbody>
+                </Table>
+            </Row>
+            <Row>
+                <BalanceSheetStats
+                    key={"stat" + renderFlag} />
+            </Row>
+        </Container>
     );
 }
 

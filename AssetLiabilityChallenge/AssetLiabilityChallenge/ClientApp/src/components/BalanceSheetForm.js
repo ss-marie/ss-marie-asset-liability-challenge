@@ -1,4 +1,6 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const BalanceSheetForm = (props) => {
 
@@ -9,7 +11,7 @@ const BalanceSheetForm = (props) => {
     });
 
     const handleTypeChange = (event) => {
-        setFormData({ ...formData, type: parseInt(event.target.value)});
+        setFormData({ ...formData, type: parseInt(event.target.value) });
     }
 
     const handleNameChange = (event) => {
@@ -36,24 +38,35 @@ const BalanceSheetForm = (props) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Type:
-                <select value={formData.type} onChange={handleTypeChange}>
-                    <option value="0">Asset</option>
-                    <option value="1">Liability</option>
-                </select>
-            </label>
-            <label>
-                Name:
-                <input type="text" name="name" onChange={handleNameChange} />
-            </label>
-            <label>
-                Balance:
-                <input type="number" name="balance" step="any" onChange={handleBalanceChange} />
-            </label>
-            <input type="submit" value="Submit" />
-        </form>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group>
+                <Form.Label>
+                    Type:
+                <Form.Control as="select" value={formData.type} onChange={handleTypeChange}>
+                        <option value="0">Asset</option>
+                        <option value="1">Liability</option>
+                    </Form.Control>
+                </Form.Label>
+            </Form.Group>
+
+            <Form.Group>
+                <Form.Label>
+                    Name:
+                <Form.Control type="text" name="name" onChange={handleNameChange} />
+                </Form.Label>
+            </Form.Group>
+
+            <Form.Group>
+                <Form.Label>
+                    Balance:
+                <Form.Control type="number" name="balance" step="any" onChange={handleBalanceChange} />
+                </Form.Label>
+            </Form.Group>
+
+            <Button type="submit">
+                Submit
+            </Button>
+        </Form>
     );
 }
 

@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
+import Table from 'react-bootstrap/Table';
 
 const BalanceSheetStats = (props) => {
 
@@ -13,7 +14,7 @@ const BalanceSheetStats = (props) => {
     },[])
 
     return (
-        <table className='table table-striped' aria-labelledby="tabelLabel">
+        <Table bordered>
             <thead>
                 <tr>
                     <th>Assets Total</th>
@@ -28,7 +29,7 @@ const BalanceSheetStats = (props) => {
                     <td>{sheetStats.netWorth}</td>
                 </tr>
             </tbody>
-        </table>
+        </Table>
     );
 }
 
