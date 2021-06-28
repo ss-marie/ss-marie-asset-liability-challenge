@@ -52,14 +52,14 @@ const BalanceSheetForm = (props) => {
             <Form.Group>
                 <Form.Label>
                     Name:
-                <Form.Control type="text" name="name" onChange={handleNameChange} />
+                <Form.Control type="text" name="name" placeholder={formData.type == 0 ? "e.g. Property" : "e.g. Debt"} onChange={handleNameChange} />
                 </Form.Label>
             </Form.Group>
 
             <Form.Group>
                 <Form.Label>
                     Balance:
-                <Form.Control type="number" name="balance" step="any" onChange={handleBalanceChange} />
+                <Form.Control type="number" name="balance" step="any" placeholder="e.g. 5000.00" onChange={handleBalanceChange} />
                 </Form.Label>
             </Form.Group>
 
