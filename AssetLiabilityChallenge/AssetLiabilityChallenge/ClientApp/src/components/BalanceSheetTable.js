@@ -13,7 +13,6 @@ const BalanceSheetTable = (props) => {
             setSheetItems(data);
         }
         populateItems();
-        console.log(renderFlag);
     }, [renderFlag])
 
     const deleteItem = (id) => {
