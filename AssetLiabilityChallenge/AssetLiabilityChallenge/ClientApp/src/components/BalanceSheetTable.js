@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import NumberFormat from 'react-number-format';
 import BalanceSheetForm from './BalanceSheetForm';
 import BalanceSheetStats from './BalanceSheetStats';
 
@@ -54,7 +55,7 @@ const BalanceSheetTable = (props) => {
                             <tr key={sheetItem.id}>
                                 <td>{sheetItem.typeString}</td>
                                 <td>{sheetItem.name}</td>
-                                <td>{sheetItem.balance}</td>
+                                <td><NumberFormat value={sheetItem.balance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} /></td>
                                 <td><Button onClick={(e) => deleteItem(sheetItem.id, e)}>Delete Row</Button></td>
                             </tr>
                         )}

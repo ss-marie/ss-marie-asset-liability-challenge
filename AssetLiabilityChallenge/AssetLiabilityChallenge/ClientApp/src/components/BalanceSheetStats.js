@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
+import NumberFormat from 'react-number-format';
 import Table from 'react-bootstrap/Table';
 
 const BalanceSheetStats = (props) => {
@@ -24,9 +25,9 @@ const BalanceSheetStats = (props) => {
             </thead>
             <tbody>
                 <tr >
-                    <td>{sheetStats.assetsTotal}</td>
-                    <td>{sheetStats.liabilitiesTotal}</td>
-                    <td>{sheetStats.netWorth}</td>
+                    <td><NumberFormat value={sheetStats.assetsTotal} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} /></td>
+                    <td><NumberFormat value={sheetStats.liabilitiesTotal} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} /></td>
+                    <td><NumberFormat value={sheetStats.netWorth} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} /></td>
                 </tr>
             </tbody>
         </Table>
