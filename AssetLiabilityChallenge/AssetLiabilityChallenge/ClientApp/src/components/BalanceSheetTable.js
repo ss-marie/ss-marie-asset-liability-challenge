@@ -11,6 +11,9 @@ const BalanceSheetTable = (props) => {
 
     const [sheetItems, setSheetItems] = useState([]);
     const [renderFlag, setRenderFlag] = useState(0);
+    // Call API to get balance sheet items and save to state
+    // Refresh the data when the Delete button or form Submit button updates renderFlag state
+    // This also refreshes the child BalanceSheetStats component
     useEffect(() => {
         async function populateItems() {
             const response = await fetch('balancesheet');
@@ -28,6 +31,7 @@ const BalanceSheetTable = (props) => {
             },
             body: id
         }).then(function (response) {
+            // Trigger refresh of table after delete
             setRenderFlag(id);
             return response.json;
         });
@@ -55,10 +59,12 @@ const BalanceSheetTable = (props) => {
                             <tr key={sheetItem.id}>
                                 <td>{sheetItem.typeString}</td>
                                 <td>{sheetItem.name}</td>
+                                { /* Display balance amount right-adjusted, as currency with precision for cents e.g. $50,000.00 */}
                                 <td className="text-right"><NumberFormat value={sheetItem.balance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} /></td>
                                 <td><Button onClick={(e) => deleteItem(sheetItem.id, e)}>Delete Row</Button></td>
                             </tr>
-                        ) : 
+                        ) :
+                             // Display an empty row if there is no data so the user recognizes this as an empty table
                             <tr key={sheetItems}>
                                 <td></td>
                                 <td></td>
@@ -70,6 +76,7 @@ const BalanceSheetTable = (props) => {
             </Row>
             <Row>
                 <BalanceSheetStats
+                    // Make BalanceSheetStats dependent on the renderFlag so when it is updated, the stats update too
                     key={"stat" + renderFlag} />
             </Row>
         </Container>

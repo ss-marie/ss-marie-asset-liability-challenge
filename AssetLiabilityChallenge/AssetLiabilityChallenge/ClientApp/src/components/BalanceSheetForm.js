@@ -23,23 +23,26 @@ const BalanceSheetForm = (props) => {
     }
 
     const handleSubmit = (event) => {
+        event.preventDefault();
+        // Check that the form validates before continuing
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
-            event.preventDefault();
             event.stopPropagation();
+        } else {
+            // Call API and submit data to add as a new row
+            fetch('balancesheet', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify(formData)
+            }).then(function (response) {
+                // Trigger refresh of parent Table component to load changes with newly added row
+                props.callback(Math.random());
+                return response.json;
+            });
         }
-        fetch('balancesheet', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/plain',
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify(formData)
-        }).then(function (response) {
-            props.callback(Math.random());
-            return response.json;
-        });
-        event.preventDefault();
     }
 
     return (
