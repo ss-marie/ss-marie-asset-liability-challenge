@@ -1,6 +1,6 @@
 ﻿namespace AssetLiabilityChallenge
 {
-    public enum BalanceSheetType
+    public enum BalanceSheetItemType
     {
         ASSET,
         LIABILITY

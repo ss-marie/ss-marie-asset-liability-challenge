@@ -51,7 +51,9 @@ export class Home extends Component {
 
     async populateBalanceSheetData() {
         const response = await fetch('balancesheet');
+        console.log(response);
         const data = await response.json();
+        console.log(data);
         this.setState({ sheetItems: data, loading: false });
     }
 }

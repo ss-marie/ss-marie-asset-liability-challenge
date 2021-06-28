@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AssetLiabilityChallenge.Contexts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,23 +14,18 @@ namespace AssetLiabilityChallenge.Controllers
     {
 
         private readonly ILogger<BalanceSheetController> _logger;
+        private BalanceSheetContext _db;
 
-        public BalanceSheetController(ILogger<BalanceSheetController> logger)
+        public BalanceSheetController(ILogger<BalanceSheetController> logger, BalanceSheetContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         [HttpGet]
-        public IEnumerable<BalanceSheet> Get()
+        public IEnumerable<BalanceSheetItem> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new BalanceSheet
-            {
-                Id = 999,
-                Type = BalanceSheetType.ASSET,
-                Name = "Car",
-                Balance = 1234.56
-            })
-            .ToArray();
+            return _db.BalanceSheetItems.ToArray();
         }
     }
 }
