@@ -23,6 +23,11 @@ const BalanceSheetForm = (props) => {
     }
 
     const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
         fetch('balancesheet', {
             method: 'POST',
             headers: {
@@ -52,14 +57,14 @@ const BalanceSheetForm = (props) => {
             <Form.Group>
                 <Form.Label>
                     Name:
-                <Form.Control type="text" name="name" placeholder={formData.type == 0 ? "e.g. Property" : "e.g. Debt"} onChange={handleNameChange} />
+                <Form.Control required type="text" name="name" placeholder={formData.type == 0 ? "e.g. Property" : "e.g. Debt"} onChange={handleNameChange} />
                 </Form.Label>
             </Form.Group>
 
             <Form.Group>
                 <Form.Label>
                     Balance:
-                <Form.Control type="number" name="balance" step="any" placeholder="e.g. 5000.00" onChange={handleBalanceChange} />
+                <Form.Control required type="number" name="balance" step="any" placeholder="e.g. 5000.00" onChange={handleBalanceChange} />
                 </Form.Label>
             </Form.Group>
 
