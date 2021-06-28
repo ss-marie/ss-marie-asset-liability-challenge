@@ -1,4 +1,5 @@
 ﻿using AssetLiabilityChallenge.Contexts;
+using AssetLiabilityChallenge.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -28,6 +29,12 @@ namespace AssetLiabilityChallenge.Controllers
             return _db.BalanceSheetItems.ToArray();
         }
 
+        [HttpGet("getStats")]
+        public BalanceSheetStats GetStats()
+        {
+            return new BalanceSheetStats(_db);
+        }
+
         [HttpPost]
         public Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<BalanceSheetItem> Add(BalanceSheetItem item)
         {
@@ -36,7 +43,6 @@ namespace AssetLiabilityChallenge.Controllers
             return entityEntry;
         }
 
-        //[Route("{controller}/delete/{id}")]
         [HttpDelete]
         public Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry Delete([FromBody]int id)
         {
