@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BalanceSheetTable from './BalanceSheetTable';
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -14,24 +15,7 @@ export class Home extends Component {
 
     static renderBalanceSheetTable(sheetItems) {
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Name</th>
-                        <th>Balance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sheetItems.map(sheetItem =>
-                        <tr key={sheetItem.id}>
-                            <td>{sheetItem.type}</td>
-                            <td>{sheetItem.name}</td>
-                            <td>{sheetItem.balance}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+            <BalanceSheetTable sheetItems={sheetItems}/>
         );
     }
 
@@ -51,9 +35,7 @@ export class Home extends Component {
 
     async populateBalanceSheetData() {
         const response = await fetch('balancesheet');
-        console.log(response);
         const data = await response.json();
-        console.log(data);
         this.setState({ sheetItems: data, loading: false });
     }
 }
