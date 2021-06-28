@@ -1,8 +1,22 @@
-﻿import React from 'react';
+﻿import React, { useState, useEffect } from 'react';
+import BalanceSheetForm from './BalanceSheetForm';
+import BalanceSheetStats from './BalanceSheetStats';
 
 const BalanceSheetTable = (props) => {
+
+    const [sheetItems, setSheetItems] = useState([]);
+    const [renderFlag, setRenderFlag] = useState(0);
+    useEffect(() => {
+        async function populateItems() {
+            const response = await fetch('balancesheet');
+            const data = await response.json();
+            setSheetItems(data);
+        }
+        populateItems();
+        console.log(renderFlag);
+    }, [renderFlag])
+
     const deleteItem = (id) => {
-        console.log(id);
         fetch('balancesheet', {
             method: 'DELETE',
             headers: {
@@ -10,10 +24,15 @@ const BalanceSheetTable = (props) => {
             },
             body: id
         }).then(function (response) {
+            setRenderFlag(id);
             return response.json;
         });
     }
     return (
+        <div>
+            <BalanceSheetForm
+                key={"form" + renderFlag}
+                callback={setRenderFlag} />
         <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
                 <tr>
@@ -24,7 +43,7 @@ const BalanceSheetTable = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {props.sheetItems.map(sheetItem =>
+                {sheetItems.map(sheetItem =>
                     <tr key={sheetItem.id}>
                         <td>{sheetItem.typeString}</td>
                         <td>{sheetItem.name}</td>
@@ -33,7 +52,10 @@ const BalanceSheetTable = (props) => {
                     </tr>
                 )}
             </tbody>
-        </table>
+            </table>
+            <BalanceSheetStats
+                key={"stat" + renderFlag } />
+        </div>
     );
 }
 

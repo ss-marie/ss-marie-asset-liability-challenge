@@ -6,6 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
+using FromBodyAttribute = Microsoft.AspNetCore.Mvc.FromBodyAttribute;
+using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
+using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
+using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace AssetLiabilityChallenge.Controllers
 {
@@ -36,26 +42,21 @@ namespace AssetLiabilityChallenge.Controllers
         }
 
         [HttpPost]
-        public Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<BalanceSheetItem> Add(BalanceSheetItem item)
+        public void Add(BalanceSheetItem item)
         {
-            var entityEntry =  _db.Add(item);
+            _db.Add(item);
             _db.SaveChanges();
-            return entityEntry;
         }
 
         [HttpDelete]
-        public Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry Delete([FromBody]int id)
+        public void Delete([FromBody]int id)
         {
             var entity = _db.BalanceSheetItems.First(item => item.Id == id);
             if (entity != null)
             {
-                var entityEntry = _db.Remove(entity);
+                _db.Remove(entity);
                 _db.SaveChanges();
-                return entityEntry;
-            } else
-            {
-                return null;
-            }
+            } 
         }
     }
 }

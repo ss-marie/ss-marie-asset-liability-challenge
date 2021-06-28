@@ -1,7 +1,17 @@
-﻿import React from 'react';
+﻿import React, { useState, useEffect } from 'react';
 
 const BalanceSheetStats = (props) => {
-    //console.log(props);
+
+    const [sheetStats, setSheetStats] = useState([]);
+    useEffect(() => {
+        async function populateStats() {
+            const response = await fetch('balancesheet/getstats');
+            const data = await response.json();
+            setSheetStats(data);
+        }
+        populateStats();
+    },[])
+
     return (
         <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
@@ -13,9 +23,9 @@ const BalanceSheetStats = (props) => {
             </thead>
             <tbody>
                 <tr >
-                    <td>{props.sheetStats.assetsTotal}</td>
-                    <td>{props.sheetStats.liabilitiesTotal}</td>
-                    <td>{props.sheetStats.netWorth}</td>
+                    <td>{sheetStats.assetsTotal}</td>
+                    <td>{sheetStats.liabilitiesTotal}</td>
+                    <td>{sheetStats.netWorth}</td>
                 </tr>
             </tbody>
         </table>

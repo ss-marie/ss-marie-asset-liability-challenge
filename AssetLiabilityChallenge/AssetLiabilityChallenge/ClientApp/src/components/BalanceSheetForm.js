@@ -1,30 +1,26 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 
 const BalanceSheetForm = (props) => {
 
     const [formData, setFormData] = useState({
-        "type":0,
-        "name":"",
-        "balance":0
+        "type": 0,
+        "name": "",
+        "balance": 0
     });
 
     const handleTypeChange = (event) => {
-        console.log(event.target.value);
         setFormData({ ...formData, type: parseInt(event.target.value)});
     }
 
     const handleNameChange = (event) => {
-        console.log(event.target.value);
         setFormData({ ...formData, name: event.target.value });
     }
 
     const handleBalanceChange = (event) => {
-        console.log(event.target.value);
         setFormData({ ...formData, balance: parseFloat(event.target.value) });
     }
 
     const handleSubmit = (event) => {
-        console.log(formData);
         fetch('balancesheet', {
             method: 'POST',
             headers: {
@@ -33,6 +29,7 @@ const BalanceSheetForm = (props) => {
             },
             body: JSON.stringify(formData)
         }).then(function (response) {
+            props.callback(Math.random());
             return response.json;
         });
         event.preventDefault();
@@ -53,7 +50,7 @@ const BalanceSheetForm = (props) => {
             </label>
             <label>
                 Balance:
-                <input type="number" name="balance" onChange={handleBalanceChange} />
+                <input type="number" name="balance" step="any" onChange={handleBalanceChange} />
             </label>
             <input type="submit" value="Submit" />
         </form>
