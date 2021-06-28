@@ -55,7 +55,7 @@ const BalanceSheetTable = (props) => {
                             <tr key={sheetItem.id}>
                                 <td>{sheetItem.typeString}</td>
                                 <td>{sheetItem.name}</td>
-                                <td><NumberFormat value={sheetItem.balance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} /></td>
+                                <td className="text-right"><NumberFormat value={sheetItem.balance} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} /></td>
                                 <td><Button onClick={(e) => deleteItem(sheetItem.id, e)}>Delete Row</Button></td>
                             </tr>
                         ) : 
