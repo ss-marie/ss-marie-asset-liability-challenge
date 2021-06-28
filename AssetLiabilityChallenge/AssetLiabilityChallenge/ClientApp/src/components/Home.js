@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BalanceSheetTable from './BalanceSheetTable';
+import BalanceSheetForm from './BalanceSheetForm';
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -15,7 +16,10 @@ export class Home extends Component {
 
     static renderBalanceSheetTable(sheetItems) {
         return (
-            <BalanceSheetTable sheetItems={sheetItems}/>
+            <div>
+                <BalanceSheetForm />
+                <BalanceSheetTable sheetItems={sheetItems} />
+            </div>
         );
     }
 
