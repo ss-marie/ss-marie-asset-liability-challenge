@@ -31,7 +31,25 @@ namespace AssetLiabilityChallenge.Controllers
         [HttpPost]
         public Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<BalanceSheetItem> Add(BalanceSheetItem item)
         {
-            return _db.Add(item);
+            var entityEntry =  _db.Add(item);
+            _db.SaveChanges();
+            return entityEntry;
+        }
+
+        //[Route("{controller}/delete/{id}")]
+        [HttpDelete]
+        public Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry Delete([FromBody]int id)
+        {
+            var entity = _db.BalanceSheetItems.First(item => item.Id == id);
+            if (entity != null)
+            {
+                var entityEntry = _db.Remove(entity);
+                _db.SaveChanges();
+                return entityEntry;
+            } else
+            {
+                return null;
+            }
         }
     }
 }

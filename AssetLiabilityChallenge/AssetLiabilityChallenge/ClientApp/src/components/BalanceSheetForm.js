@@ -20,7 +20,7 @@ const BalanceSheetForm = (props) => {
 
     const handleBalanceChange = (event) => {
         console.log(event.target.value);
-        setFormData({ ...formData, balance: event.target.value });
+        setFormData({ ...formData, balance: parseFloat(event.target.value) });
     }
 
     const handleSubmit = (event) => {
