@@ -10,7 +10,7 @@ const BalanceSheetForm = (props) => {
 
     const handleTypeChange = (event) => {
         console.log(event.target.value);
-        setFormData({ ...formData, type: event.target.value});
+        setFormData({ ...formData, type: parseInt(event.target.value)});
     }
 
     const handleNameChange = (event) => {

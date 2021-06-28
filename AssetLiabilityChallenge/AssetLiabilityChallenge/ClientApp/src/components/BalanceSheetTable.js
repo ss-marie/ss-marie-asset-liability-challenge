@@ -26,7 +26,7 @@ const BalanceSheetTable = (props) => {
             <tbody>
                 {props.sheetItems.map(sheetItem =>
                     <tr key={sheetItem.id}>
-                        <td>{sheetItem.type}</td>
+                        <td>{sheetItem.typeString}</td>
                         <td>{sheetItem.name}</td>
                         <td>{sheetItem.balance}</td>
                         <td><button onClick={(e) => deleteItem(sheetItem.id, e)}>Delete Row</button></td>
