@@ -27,5 +27,11 @@ namespace AssetLiabilityChallenge.Controllers
         {
             return _db.BalanceSheetItems.ToArray();
         }
+
+        [HttpPost]
+        public Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<BalanceSheetItem> Add(BalanceSheetItem item)
+        {
+            return _db.Add(item);
+        }
     }
 }
